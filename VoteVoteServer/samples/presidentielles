@@ -1,0 +1,38 @@
+[
+{
+  question:"Pour qui auriez-vous voté à la présidentielle en France en 1965?",
+  choices:["Charles de Gaulle","François Mitterrand","Jean Lecanuet","Jean-Louis Tixier-Vignancour","Pierre Marcilhacy","Marcel Barbu"]
+},
+{
+  question:"Pour qui auriez-vous voté à la présidentielle en France en 1969?",
+  choices:["Georges Pompidou","Alain Poher","Jacques Duclos","Gaston Defferre","Michel Rocard","Louis Ducatel","Alain Krivine"]
+},
+{
+  question:"Pour qui auriez-vous voté à la présidentielle en France en 1974?",
+  choices:["François Mitterrand","Valéry Giscard d'Estaing","Jacques Chaban-Delmas","Jean Royer","Arlette Laguiller","René Dumont","Jean-Marie Le Pen","Émile Muller","Alain Krivine","Bertrand Renouvin","Jean-Claude Sebag","Guy Héraud"]
+},
+{
+  question:"Pour qui auriez-vous voté à la présidentielle en France en 1981?",
+  choices:["François Mitterrand","Valéry Giscard d'Estaing","Jacques Chirac","Georges Marchais","Brice Lalonde","Arlette Laguiller","Michel Crépeau","Michel Debré","Marie-France Garaud","Huguette Bouchardeau"]
+},
+{
+  question:"Pour qui auriez-vous voté à la présidentielle en France en 1988?",
+  choices:["François Mitterrand","Jacques Chirac","Raymond Barre","Jean-Marie Le Pen","André Lajoinie","Antoine Waechter","Pierre Juquin","Arlette Laguiller","Pierre Boussel"]
+},
+{
+  question:"Pour qui auriez-vous voté à la présidentielle en France en 1995?",
+  choices:["Lionel Jospin","Jacques Chirac","Édouard Balladur","Jean-Marie Le Pen","Robert Hue","Arlette Laguiller","Philippe de Villiers","Dominique Voynet","Jacques Cheminade"]
+},
+{
+  question:"Pour qui auriez-vous voté à la présidentielle en France en 2002?",
+  choices:["Lionel Jospin","Jacques Chirac","Jean-Marie Le Pen","François Bayrou","Arlette Laguiller","Jean-Pierre Chevènement","Noël Mamère","Olivier Besancenot","Jean Saint-Josse","Alain Madelin","Robert Hue","Bruno Mégret","Christiane Taubira","Corinne Lepage","Christine Boutin","Daniel Gluckstein"]
+},
+{
+  question:"Pour qui auriez-vous voté à la présidentielle en France en 2007?",
+  choices:["Nicolas Sarkozy","Ségolène Royal","François Bayrou","Jean-Marie Le Pen","Olivier Besancenot","Philippe de Villiers","Marie-George Buffet","Dominique Voynet","Arlette Laguiller","José Bové","Frédéric Nihous","Gérard Schivardi"]
+},
+{
+  question:"Pour qui auriez-vous voté à la présidentielle en France en 2012?",
+  choices:["Nicolas Sarkozy","François Hollande","Marine Le Pen","Jean-Luc Mélenchon","François Bayrou","Eva Joly","Nicolas Dupont-Aignan","Philippe Poutou","Nathalie Arthaud","Jacques Cheminade"]
+}
+]

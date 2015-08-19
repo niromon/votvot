@@ -1,0 +1,61 @@
+<div class="row">
+
+
+	<div class="col-md-4">
+		<div class="well">
+			<h1>Déjà voté</h1>
+			Les questions sur lesquelles vous avez déjà voté.
+			<table class="table table-striped table-condensed table-hover">
+				<tr>
+					<th>{{ 'RESULTS' | translate }}</th>
+					<th>{{ 'VOTE' | translate }}</th>
+					<th>{{ 'DATE' | translate }}</th>
+<!-- 					<th>{{ 'VOTER' | translate }}</th> -->
+
+				</tr>
+				<tr
+					ng-repeat="vote in votes  | orderBy:'timestamp':true  track by vote.id">
+					<td><a class="btn btn-primary"
+						href="#result/{{ vote.questionId }}">{{'RESULTS' | translate}}</a></td>
+					<td><a class="btn btn-danger"
+						href="#poll/{{ vote.questionId }}">{{'POLL' | translate}}</a></td>
+					<td>{{ vote.timestamp | date : 'yyyy.MM.dd HH:mm:ss' }}</td>
+<!-- 					<td>{{ vote.voter }}</td> -->
+				</tr>
+
+
+			</table>
+		</div>
+	</div>
+	<div class="col-md-4	">
+		<h1>A soutenu</h1>
+		Les questions que vous avez voulu intégrer ou rejeter.
+		<table class="table table-striped table-condensed table-hover">
+			<tr>
+				<th>{{ 'ID' | translate }}</th>
+				<th>{{ 'QUESTIONID' | translate }}</th>
+				<th>{{ 'DATE' | translate }}</th>
+				<th>{{ 'VOTER' | translate }}</th>
+
+			</tr>
+			<tr
+				ng-repeat="support in supports  | orderBy: 'id':true  track by support.id">
+				<td>{{ support.id }}</td>
+				<td>{{ support.opinion  | translate}}</td>
+				<td>{{ support.timestamp | date : 'yyyy.MM.dd HH:mm' }}</td>
+				<td>{{ support.voter }}</td>
+			</tr>
+
+
+		</table>
+
+	</div>
+
+	<div class="col-md-4	">
+		<h1>Va voter</h1>
+		Les questions sur lesquelles vous avez indiqué votre intérêt.
+		
+
+	</div>
+
+</div>

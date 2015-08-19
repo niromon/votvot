@@ -1,0 +1,58 @@
+<div class="row">
+
+
+ <div class="col-md-8">
+  
+   <div class="panel panel-primary">
+     <div class="panel-heading">
+       <h3 class="panel-title">Profil de {{person.firstName}} {{person.lastName}}</h3>
+     </div>
+     <div class="panel-body">
+       <p>{{ person.firstName  }}  </p>
+       <p>{{ person.lastName  }}  </p>
+       <p>{{ person.birthDate  }}  </p>
+       <p>{{ person.sex  }}  </p>
+       <input value="{{ person.email  }}">  </input>
+       <p>{{ person.firstName  }}  </p>
+<!--        <p>{{person.email}}</p> -->
+		
+		
+		<table class="table">
+			<tr><td>{{'EMAIL' | translate}} :		</td><td> {{person.email}}</td></tr>
+			<tr><td>{{'FIRST_NAME' | translate}} :	</td><td> {{person.firstName}} </td></tr>
+			<tr><td>{{'LAST_NAME' | translate}} :	</td><td> {{person.lastName}} </td></tr>
+			<tr><td>{{'BIRTH_DATE' | translate}} :	</td><td> {{person.birthDate | date : 'yyyy-MM-dd'}} </td></tr>
+			<tr><td>{{'BIRTH_PLACE' | translate}} :	</td><td> {{person.birthPlace.description}} </td></tr>
+		</table>
+     </div>
+   </div>
+   
+   
+
+ </div>
+ <div class="col-md-4">
+  
+  <div class="panel panel-primary">
+     <div class="panel-heading">
+       <h3 class="panel-title">{{'DATES' | translate}}</h3>
+     </div>
+     <div class="panel-body">
+       <p>{{'PROPOSITION' | translate}} :  </p>
+       <p>{{'ACCEPTATION' | translate}} : </p>
+       <p>{{'EXPIRATION' | translate}} : </p>
+     </div>
+   </div>
+  
+  <div class="panel panel-primary">
+     <div class="panel-heading">
+       <h3 class="panel-title">{{'RESULTS' | translate}}</h3>
+     </div>
+     <div class="panel-body">
+       
+     </div>
+   </div>
+
+ </div>
+ 
+ 
+

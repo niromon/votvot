@@ -1,0 +1,132 @@
+<div class="row">
+			
+
+			<div class="col-md-8" >
+
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Proposition de vote</h3>
+					</div>
+					<div class="panel-body">
+						<form role="form" onsubmit="false">
+							<div class="form-group">
+								<label for="theQuestion">Intitulé</label>
+								<textarea class="form-control" ng-model="poll.question" rows="3"></textarea>
+							</div>
+							
+<!-- 							<div class="form-group"> -->
+<!-- 								<label for="exampleInputFile">File input</label> <input -->
+<!-- 									type="file" id="exampleInputFile"> -->
+<!-- 								<p class="help-block">Example block-level help text here.</p> -->
+<!-- 							</div> -->
+							<label for="typeOfQuestion">Type de question</label>
+							<select class="form-control" ng-model="poll.type" ng-change="setShowChoices(poll.type)">
+								<option value="SingleChoice">Choix unique</option>
+								<option value="Preferential">Classement</option>
+							</select>
+							
+							
+							
+							<div ng-show="showChoices">
+								<label for="exampleInputPassword1">Choix de réponses</label> 
+
+							    <!--  Display and potentially remove -->
+							    <div class="input-group" ng-repeat="c in poll.choices track by $index" style="margin-bottom:10px;">
+							      <input type="text" class="form-control" ng-model="poll.choices[$index]" />
+							      
+							      <span class="input-group-btn">
+							        <button ng-click="delChoice(c);" class="btn btn-danger" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+							      </span>
+							    </div><!-- /input-group -->
+
+								<!--  ADD a new one -->
+								<div class="input-group">
+							      <input id="newOne" type="text" ng-keyup="$event.keyCode == 13 && addChoice(choice);" class="form-control" ng-model="choice" placeholder="{{'ADD_CHOICE' | translate}}">
+							      <span class="input-group-btn">
+							        <button ng-click="addChoice(choice);" class="btn btn-success" type="button">
+							        	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							        </button>
+							      </span>
+							    </div><!-- /input-group -->
+								
+								
+								
+							</div>
+							
+							<!-- Where I should let the place for options  -->
+<!-- 							<div class="input-group"> -->
+<!-- 									<label for="audience">Électeurs</label> -->
+<!-- 									<select class="form-control" ng-model="poll.audience" ng-change="setShowChoices(poll.type)"> -->
+<!-- 										<option value="SingleChoice">Humanity</option> -->
+<!-- 										<option value="Preferential">Nationalité</option> -->
+<!-- 									</select> -->
+<!-- 							</div> -->
+							
+							
+							<div ng-hide="true">
+								<div class="form-group">
+									<label for="exampleInputPassword1">{{'INFO_LINKS' | translate}}</label> 
+									<input type="text" class="form-control" ng-model="link" placeholder="Type in a new link">
+									<input class="btn btn-success btn-xs" ng-click="addLink(link);" value="+"/>
+								</div>
+								<ul ng-repeat="l in poll.links">
+									<li>
+										{{l}}
+										<a class="btn btn-xs btn-info" href="{{l}}" target="_blank">test</a>  
+										<input class="btn btn-warning btn-xs" ng-click="delLink(l);" value="-"/>
+									</li>
+								</ul>
+							</div>
+							<div class="input-group">
+								<p>
+								<a href="" class="btn btn-success btn-block" ng-click="propose(poll);">Proposer</a>
+<!-- 								<button type="button" class="btn btn-xs btn-info">Aperçu</button> -->
+<!-- 								<button type="button" class="btn btn-warning pull-right">Sauver un brouillon</button> -->
+								</p>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+			
+			<div class="col-md-4">
+
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Proposition deviendra vote?</h3>
+					</div>
+					<div class="panel-body">
+						<ul>
+							<li>La proposition est dans le système</li>
+							<li>Pendant un mois, les voteurs peuvent décider de l'intégrer ou pas</li>
+							<li>Dès 50% des votants se sont prononcés, 
+								<ul>
+									<li>Si plus de 50% des votants veulent intégrer, on intègre</li>
+									<li>Sinon on l'élimine des propositions</li>
+								</ul>
+							</li>
+							<li>Au bout d'un mois, la proposition est éliminée si moins de 30% de votants se sont prononcés</li>
+						</ul>
+					</div>
+				</div>
+					
+				<pre>USER = 		{{poll | json}}</pre>
+				<pre>Choice = 		{{choice | json}}</pre>
+				<pre>Link = 		{{link | json}}</pre>
+				<pre>show Choices = {{ showChoices | json}}</pre>
+				
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
+
+				<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-sm">
+				    <div class="modal-content">
+				      Show confirmation here
+				    </div>
+				  </div>
+				</div>
+				
+			</div>
+
+
+		</div>

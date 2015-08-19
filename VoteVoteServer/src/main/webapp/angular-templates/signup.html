@@ -1,0 +1,61 @@
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6" >
+		<form class="form-signin" role="form" novalidate>
+			<h2 class="form-signin-heading">{{'SIGN_UP' | translate}}</h2>
+			<label for="inputEmail" class="sr-only">Courriel</label> 
+			<input class="form-control"  placeholder="{{'EMAIL' | translate}}"
+				ng-model="creds.email" value="joris.deguet@gmail.com" /> 
+				<input class="form-control"  placeholder="{{'FIRST_NAME' | translate}}"
+				ng-model="creds.firstName" value="joris.deguet@gmail.com" /> 
+				<input class="form-control"  placeholder="{{'LAST_NAME' | translate}}"
+				ng-model="creds.lastName" value="joris.deguet@gmail.com" /> 
+			<label for="inputPassword"
+				class="sr-only">{{'PASSWORD' | translate}}</label> 
+			<input 
+				type="password" id="inputPassword" class="form-control"
+				placeholder="{{'PASSWORD' | translate}}"  ng-model="creds.password" value="password" required />
+			<label for="inputPasswordConfirm"
+				class="sr-only">Confirmation du mot de passe</label> 
+			<input 
+				type="password" id="inputPassword" class="form-control"
+				placeholder="{{'PASSWORD' | translate}} Bis"  ng-model="creds.password2" value="password" required />
+			
+			<p>
+				<label class="radio-inline">
+				  <input ng-model="creds.sex" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Male"> {{'MALE' | translate}}
+				</label>
+				<label class="radio-inline">
+				  <input ng-model="creds.sex" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Female"> {{'FEMALE' | translate}}
+				</label>
+			</p>
+			
+			<div>
+        		<datepicker ng-model="creds.dddd"  show-weeks="true" class="well well-sm"></datepicker>
+    		</div>
+			
+			<input class="form-control" placeholder="Date de naissance" type="date" ng-model="creds.birthDate" id="datepicker" max="1979-12-31">
+			<input class="form-control" placeholder="Lieu de naissance" type="text" ng-model="creds.birthPlace" >
+			
+			<button ng-click="signup(creds)"
+				class="btn btn-lg btn-primary btn-block">S'enregistrer</button>
+
+			<pre>TOCREATE = {{creds | json}}</pre>
+			
+		</form>
+	</div>
+
+</div>
+
+<script>
+		$(function() {
+			$.datepicker.setDefaults( $.datepicker.regional['fr'] );
+			$.datepicker.setDefaults({
+				  changeMonth: true,
+			      changeYear: true,
+			      dateFormat:'yy-mm-dd'
+				});
+		
+		    $('#datepicker').datepicker();
+		 });
+</script>

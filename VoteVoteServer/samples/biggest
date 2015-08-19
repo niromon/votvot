@@ -1,0 +1,22 @@
+[
+{
+  question:"Quel est le plus gros défi de l'humanité?",
+  choices:[
+    "Réchauffement climatique",
+    "La guerre",
+    "Surpeuplement",
+    "Gestion des resources naturelles"
+    ]
+}
+,
+{
+  question:"Quelle est la mesure prioritaire?",
+  choices:[
+    "Limiter les gaz à effet de serre",
+    "Supprimer les armées",
+    "Instaurer une démocratie mondiale",
+    "Supprimer les paradis fiscaux",
+    "Supprimer la faim dans le monde"
+    ]
+}
+]

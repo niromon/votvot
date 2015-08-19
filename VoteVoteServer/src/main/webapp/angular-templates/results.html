@@ -1,0 +1,59 @@
+<div class="row">
+ 
+
+ <div class="col-md-8">
+  
+   <div class="panel panel-primary">
+     <div class="panel-heading">
+       <h3 class="panel-title">{{'GLOBAL_RESULT' | translate}} ({{ poll.type }})</h3>
+     </div>
+     <div class="panel-body">
+       <h3>{{ poll.question }}</h3>
+       <div ng-show="poll.type === 'Preferential'">
+	       
+	       
+	       <p>TODO Preferential</p>
+	       <div id="mynetwork" style="width: 100%;height: 300px; "></div>
+	       <p>{{results.tideman}}</p>
+	       <p>{{results.shulze}}</p>
+	       <p>{{results.instant}}</p>
+	       <p></p>
+	       <div class="fb-share-button" data-href="{{url()}}" data-layout="button"></div>
+	   </div>
+	   <div ng-show="poll.type === 'SingleChoice'">
+	       <div  id="canvas-chart" style="width: 100%;height: 300px; "></div>
+	       <ul>
+	       	 <li ng-repeat="s in scores | orderBy: 'score':true">{{s.option}} : {{s.score}}</li>
+	       </ul>
+	       <div class="fb-share-button" data-href="{{url()}}" data-layout="button"></div>
+	   </div>
+     </div>
+   </div>
+
+ </div>
+ <div class="col-md-4">
+  
+   <div class="panel panel-primary">
+     <div class="panel-heading">
+       <h3 class="panel-title">{{'PARTICIPATION' | translate}}</h3>
+     </div>
+     <div class="panel-body">
+       <div id="canvas-participation" style="width: 100%;height: 300px; "></div>
+       <div class="fb-share-button" data-layout="button"></div>
+     </div>
+   </div>
+
+ </div>
+
+<link href="libs/vis/dist/vis.css" rel="stylesheet" type="text/css" />
+
+
+    
+   <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>

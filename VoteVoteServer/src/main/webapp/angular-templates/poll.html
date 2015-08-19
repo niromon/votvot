@@ -1,0 +1,99 @@
+<div class="row">
+ 
+<!-- http://johnny.github.io/jquery-sortable/ -->
+<!-- http://marceljuenemann.github.io/angular-drag-and-drop-lists/demo/#/nested -->
+<!-- http://htmlpreview.github.io/?https://github.com/fatlinesofcode/ngDraggable/blob/master/example.html -->
+
+<div class="col-md-8" ng-show="hasvoted">
+	You already voted on this
+</div>
+
+ <div class="col-md-8" ng-hide="hasvoted">
+  
+   <div class="panel panel-primary" ng-hide="poll.status === 'Proposed'">
+     <div class="panel-heading">
+       <h3 class="panel-title">{{poll.question}}</h3>
+     </div>
+     <div class="panel-body">
+       <p>{{ poll.type }} : {{ poll.status }} </p>
+       
+		<div ng-show="poll.type === 'Preferential'"  ng-controller="PollController as jojo">
+			<div style="border:2px solid #afa;" class=" span12" data-drop="true" ng-model='bucket'  jqyoui-droppable="{multiple:true, onDrop:'jojo.dropCallback()'}" ng-repeat="bucket in buckets">
+                <div class="caption" style="padding:5px;">
+                 	<span ng-hide="bucket.length != 0">Insert your choice</span>
+                   <div 
+                   	class="btn btn-default" 
+                   	ng-repeat="item in bucket" 
+                   	ng-show="item" data-drag="true"  
+                   	ng-model="bucket" jqyoui-draggable="{index: {{$index}}}">{{item}}</div>
+                 </div>
+              </div>
+		   
+		   <div class="well" 
+         		data-drop="true" 
+         		data-jqyoui-options="{revert: true}"
+         		ng-model='candidates' 
+         		jqyoui-droppable="{onDrop:'jojo.dropCallback()'}" >
+           <div ng-repeat="item in candidates" 
+           	class="btn btn-xs btn-danger" 
+           	 ng-model="candidates" 
+           	 data-drag="true" 
+           	jqyoui-draggable="{index: {{$index}}}" >{{item}}</div>
+         </div>
+          <a href="" class="btn btn-danger" ng-click="sendPrefVote()">Vote</a>
+		</div>
+		<p ng-show="poll.type === 'SingleChoice'">
+			<a ng-click='sendVote(poll,choice)' class="btn btn-sm btn-primary"
+				ng-repeat="choice in poll.choices">{{choice}}</a> 
+			<a ng-click='sendVote(poll,"LetMeThink")' class="btn  btn-warning">{{'LET_ME_THINK' | translate}}</a>
+		</p>
+     </div>
+   </div>
+   
+   <div class="panel panel-primary" ng-show="poll.status === 'Proposed'">
+     <div class="panel-heading">
+       <h3 class="panel-title">Proposition : {{poll.question}}</h3>
+     </div>
+     <div class="panel-body">
+       <p>{{ poll.type }} : {{ poll.status }} </p>
+       
+		<a ng-click="support(poll,'INCLUDE')" href="" class="btn btn-success">{{'INCLUDE' | translate}}</a>
+		<a ng-click="support(poll,'NO_OPINION')" href="" class="btn btn-warning">{{'NO_OPINION' | translate}}</a>
+		<a ng-click="support(poll,'EXCLUDE')" href="" class="btn btn-danger">{{'EXCLUDE' | translate}}</a>
+		
+     </div>
+   </div>
+
+ </div>
+ <div class="col-md-4">
+  
+  <div class="panel panel-primary">
+     <div class="panel-heading">
+       <h3 class="panel-title">{{'DATES' | translate}}</h3>
+     </div>
+     <div class="panel-body">
+       <p>{{'PROPOSITION' | translate}} :  {{ poll.proposedDate | date : 'yyyy/MM/dd HH:mm' }}</p>
+       <p>{{'ACCEPTATION' | translate}} : {{ poll.acceptedDate | date : 'yyyy/MM/dd HH:mm' }}</p>
+       <p>{{'EXPIRATION' | translate}} : {{ poll.closedDate | date : 'yyyy/MM/dd HH:mm' }}</p>
+     </div>
+   </div>
+  
+  <div class="panel panel-primary">
+     <div class="panel-heading">
+       <h3 class="panel-title">{{'RESULTS' | translate}}</h3>
+     </div>
+     <div class="panel-body">
+       <a class="btn btn-large btn-primary" href="#result/{{poll.id}}">{{'RESULTS' | translate}}</a>
+       <a 	class="btn btn-large btn-primary"
+       		ng-show="poll.status === 'Proposed'"
+       		href="/rest/fakeinclude/{{poll.id}}" target="_blank">Include {{poll.id}}</a>
+       <a 	class="btn btn-large btn-primary"
+       		ng-show="poll.status === 'Accepted'"
+       		href="/rest/fakevote/{{poll.id}}" target="_blank">Accept {{poll.id}}</a>
+     </div>
+   </div>
+
+ </div>
+ 
+ 
+

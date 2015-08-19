@@ -1,0 +1,86 @@
+<div class="row" >
+
+	<div class="col-md-12">
+		<div class="well" >
+			<p>
+				People: {{numbers.numberOfPeople}}
+			  
+				Questions: {{numbers.numberOfQuestions}}
+			 
+				Propositions: {{numbers.numberOfPropositions}}
+			 
+				Réponses: {{numbers.numberOfAnswers}}
+			</p>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+		<div class="panel panel-success" ng-repeat="poll in polls">
+			<div class="panel-heading">
+				<h3 class="panel-title">Vote ({{ poll.type | translate }}) : {{ poll.question }}</h3>
+			</div>
+			<div class="panel-body">
+				
+				<p>
+					<a class="btn btn-success" href="#poll/{{poll.id}}">{{'GO_TO_PAGE' | translate}}</a>
+					<a class="btn btn-danger" href="#result/{{poll.id}}">{{'RESULTS' | translate}}</a>
+				</p>
+				<p>
+					<a class="btn btn-sm btn-info" href="#poll/{{poll.id}}">{{'TRACK' | translate}}</a>
+					
+					<a class="btn btn-primary btn-xs" href="/rest/vote/participation/{{poll.id}}">{{'PARTICIPATIONS' | translate}}</a>
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+		<div class="panel panel-primary" ng-repeat="poll in propositions">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{'PROPOSITION' | translate}}  {{ poll.status }}</h3>
+			</div>
+			<div class="panel-body">
+				<p>{{'DO_YOU_WANT_TO_VOTE_THIS' | translate}}</p>
+				<p>
+					<a class="btn btn-success" href="#poll/{{poll.id}}">{{'GO_TO_PAGE' | translate}}</a>				</p>
+				<div class="well">
+					<p>{{ poll.question }}</p>
+<!-- 					<a class="btn btn-sm btn-success disabled">{{'YES' | translate}}</a> <a -->
+<!-- 						class="btn btn-sm btn-warning disabled">{{'NO' | translate}}</a> -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+
+		<div class="panel panel-info" ng-repeat="check in checks">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{'PERSON' | translate}} {{check.person.firstName}} {{check.person.lastName}}</h3>
+			</div>
+			<div class="panel-body">
+<!-- 				<div> -->
+<!-- 					<img style="width: 100%;" -->
+<!-- 						src="data:image/jpeg;base64,{{check.picture.content}}" -->
+<!-- 						alt="id picture" /> -->
+<!-- 				</div> -->
+				<div>
+					
+<!-- 					<table> -->
+<!-- 						<tr><td>{{'EMAIL' | translate}} :		</td><td> {{check.person.email}}</td></tr> -->
+<!-- 						<tr><td>{{'FIRST_NAME' | translate}} :	</td><td> {{check.person.firstName}} </td></tr> -->
+<!-- 						<tr><td>{{'LAST_NAME' | translate}} :	</td><td> {{check.person.lastName}} </td></tr> -->
+<!-- 						<tr><td>{{'BIRTH_DATE' | translate}} :	</td><td> {{check.person.birthDate | date : 'yyyy-MM-dd'}} </td></tr> -->
+<!-- 						<tr><td>{{'BIRTH_PLACE' | translate}} :	</td><td> {{check.person.birthPlace.description}} </td></tr> -->
+<!-- 					</table> -->
+
+<!-- 					<p><a class="btn btn-sm btn-success">{{'POSITIVE_ID' | translate}}</a></p> -->
+<!-- 					<p><a class="btn btn-sm btn-warning">{{'DONT_KNOW' | translate}}</a></p> -->
+<!-- 					<p><a class="btn btn-sm btn-danger">{{'NEGATIVE_ID' | translate}}</a></p> -->
+					<p><a class="btn btn-sm btn-primary" href="#person/{{check.person.id}}">{{'PROFILE' |  translate}}</a></p>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
