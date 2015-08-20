@@ -86,7 +86,7 @@ votvot.controller('PollController', function ($window,$scope, $location, $http ,
 	}
 	
 	$scope.support = function(poll, choice) {
-		  var supportRequest = {'pollId':$routeParams.pollId,'voterId': $window.localStorage.personID, 'opinion':choice};
+		  var supportRequest = {'questionId':$routeParams.pollId,'voterId': $window.localStorage.personID, 'opinion':choice};
 		  $http.post('/rest/poll/support', supportRequest).
 			success(function(data, status, headers, config) {
 				console.log("Success "  );
