@@ -26,7 +26,7 @@ import org.joda.time.DateTime;
 /**
  * une personne s'inscrit et on peut valider son existence
  * apres elle peut
- * - changer de nom ou de photo ou d'email
+ * - changer de photo ou d'email
  * - (mais pas de lieu ou de date de naissance)
  * - mourir
  * 
@@ -39,7 +39,7 @@ import org.joda.time.DateTime;
  * 
  * En validant, vérifier si on a des profils trop proches (même date de naissance, noms proches, lieux proches)
  * 
- * Il faut démarrer quelque part: Visa, Etat
+ * Il faut démarrer quelque part: Visa, Etat??
  * @author joris
  *
  */
@@ -62,8 +62,6 @@ public class ServiceSocial  {
 	final CRUD<IDPicture> repoPicture ;
 	public final CRUD<SocialLink> rlink;
 	final CRUD<Reference> rref;
-
-	static NQPerson current;
 
 	public ServiceSocial(){
 		this.rperson = new RepoPerson();
@@ -154,13 +152,6 @@ public class ServiceSocial  {
 			}
 		}
 		throw new BadEmail(login);
-	}
-
-	public void logout() {current = null;}
-
-	public NQPerson currentUser() throws NoOneLogged{
-		if (current == null) throw new NoOneLogged();
-		return current;
 	}
 
 	/**
