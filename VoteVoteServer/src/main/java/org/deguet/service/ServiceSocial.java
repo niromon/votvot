@@ -11,6 +11,9 @@ import java.util.UUID;
 import org.deguet.model.NQPosition;
 import org.deguet.model.NQToken;
 import org.deguet.model.civil.IDPicture;
+import org.deguet.model.civil.NQAffiliation;
+import org.deguet.model.civil.NQConfirmation;
+import org.deguet.model.civil.NQGroup;
 import org.deguet.model.civil.NQPerson;
 import org.deguet.model.civil.NQPerson.Sex;
 import org.deguet.model.civil.Reference;
@@ -21,6 +24,7 @@ import org.deguet.model.transfer.S2CIDCheck;
 import org.deguet.repo.RepoPerson;
 import org.deguet.utils.CRUD;
 import org.deguet.utils.FileRepository;
+import org.deguet.utils.JPARepository;
 import org.joda.time.DateTime;
 
 /**
@@ -57,36 +61,47 @@ public class ServiceSocial  {
 	public class NoToken extends Exception{}
 
 	// Repositories
-	final RepoPerson rperson;
-	final CRUD<NQToken> repoToken ;
-	final CRUD<IDPicture> repoPicture ;
-	public final CRUD<SocialLink> rlink;
-	final CRUD<Reference> rref;
+	public final RepoPerson 				repoperson;
+	public final CRUD<NQToken> 				repoToken ;
+	public final CRUD<IDPicture> 			repoPicture ;
+	public final CRUD<SocialLink> 			repolink;
+	public final CRUD<Reference> 			reporef;
+	public final CRUD<NQGroup> 				repogroup;
+	public final CRUD<NQAffiliation> 		repoaffiliation;
+	public final CRUD<NQConfirmation> 		repoconfirmation;
 
 	public ServiceSocial(){
-		this.rperson = new RepoPerson();
+		this.repoperson = new RepoPerson();
 		this.repoToken = new FileRepository<NQToken>(NQToken.class);
-		this.rlink = new FileRepository<SocialLink>(SocialLink.class);
-		this.rref = new FileRepository<Reference>(Reference.class);
+		this.repolink = new FileRepository<SocialLink>(SocialLink.class);
+		this.reporef = new FileRepository<Reference>(Reference.class);
 		this.repoPicture = new FileRepository<IDPicture>(IDPicture.class);
+		this.repogroup = new JPARepository<NQGroup>(NQGroup.class);
+		this.repoaffiliation = new JPARepository<NQAffiliation>(NQAffiliation.class);
+		this.repoconfirmation = new JPARepository<NQConfirmation>(NQConfirmation.class);
 	}
 
-	public ServiceSocial(RepoPerson rp , CRUD<NQToken> rt, CRUD<SocialLink> rl, CRUD<Reference> rr, CRUD<IDPicture> rpic){
-		this.rperson = 			rp;
-		this.repoToken = 		rt;
-		this.rlink = 			rl;
-		this.rref = 			rr;
-		this.repoPicture = 		rpic;
-	}
+//	public ServiceSocial(
+//			RepoPerson rp , 
+//			CRUD<NQToken> rt, 
+//			CRUD<SocialLink> rl, 
+//			CRUD<Reference> rr, 
+//			CRUD<IDPicture> rpic){
+//		this.repoperson = 			rp;
+//		this.repoToken = 			rt;
+//		this.repolink = 			rl;
+//		this.reporef = 				rr;
+//		this.repoPicture = 			rpic;
+//	}
 
 	public List<NQPerson> relationByType(Type type, NQPerson p) {
 		List<NQPerson> res = new ArrayList<NQPerson>();
-		for (SocialLink l : rlink.getAll()){
+		for (SocialLink l : repolink.getAll()){
 			if (l.type == type){
 				if (l.userA.equals(p.getId()) )
-					res.add(rperson.get(l.userB));
+					res.add(repoperson.get(l.userB));
 				else if (l.userB.equals(p.getId()))
-					res.add(rperson.get(l.userA));
+					res.add(repoperson.get(l.userA));
 			}
 		}
 		return res;
@@ -100,15 +115,15 @@ public class ServiceSocial  {
 		if (r.adress.getId() == null) r.adress.setId(UUID.randomUUID().toString());
 		if (r.birthPlace.getId() == null) r.birthPlace.setId(UUID.randomUUID().toString());
 		// check if exists
-		NQPerson existing = rperson.findByEmail(r.email);
+		NQPerson existing = repoperson.findByEmail(r.email);
 		if (existing != null) throw new BadEmail("User email already exists");
 		// build the person and hash the password
 		NQPerson p = C2SSignUpRequest.convert(r);
-		rperson.save(p);
+		repoperson.save(p);
 		return p;
 	}
 
-	public List<NQPerson> allPeople() { return rperson.getAll();}
+	public List<NQPerson> allPeople() { return repoperson.getAll();}
 
 	public NQToken signin(String login, String password) throws BadEmail, BadPassword, NoSuchAlgorithmException, UnsupportedEncodingException {
 		// if credentials are good
@@ -139,14 +154,14 @@ public class ServiceSocial  {
 		if (t == null){
 			throw new NoToken();
 		}
-		NQPerson p = rperson.get(t.userID);
+		NQPerson p = repoperson.get(t.userID);
 		if (p == null)
 			throw new NoToken();
 		return p;
 	}
 
 	public NQPerson findByLogin(String login) throws BadEmail {
-		for (NQPerson p : rperson.getAll()){
+		for (NQPerson p : repoperson.getAll()){
 			if (p.email.toLowerCase().trim().equals(login.toLowerCase().trim())){
 				return p;
 			}
@@ -161,7 +176,7 @@ public class ServiceSocial  {
 	 */
 	public List<Reference> refsFor(NQPerson p){
 		List<Reference> res = new  ArrayList<Reference>();
-		for (Reference r : rref.getAll()){
+		for (Reference r : reporef.getAll()){
 			if (r.validated.getId().equals(p.getId())) res.add(r);
 		}
 		return res;
@@ -169,7 +184,7 @@ public class ServiceSocial  {
 
 	public List<NQPerson> similarProfiles(NQPerson p){
 		List<NQPerson> result = new ArrayList<NQPerson>();
-		for (NQPerson other : this.rperson.getAll()){
+		for (NQPerson other : this.repoperson.getAll()){
 			if (other.getId().equals(p.getId())) continue;					// do not count itself
 			if (Math.abs(other.adress.lat - p.adress.lat) > 1) continue;	// should be close in space
 			if (Math.abs(other.adress.lng - p.adress.lng) > 1) continue;
@@ -196,8 +211,8 @@ public class ServiceSocial  {
 	}
 
 	public void deletePeople() {
-		rlink.deleteAll();
-		rperson.deleteAll();
+		repolink.deleteAll();
+		repoperson.deleteAll();
 	}
 
 	public void fakeLoad() {
@@ -225,12 +240,12 @@ public class ServiceSocial  {
 		// validation
 		// add the reference
 		// compute if we consider it a real person threshold
-		rref.save(ref);
+		reporef.save(ref);
 	}
 
 	public void create(SocialLink link) {
 		// access permissions
-		rlink.save(link);
+		repolink.save(link);
 	}
 
 
@@ -245,7 +260,7 @@ public class ServiceSocial  {
 	public List<S2CIDCheck> allIDChecks() {
 		List<S2CIDCheck> res = new ArrayList<S2CIDCheck>();
 		int count = 0;
-		for (NQPerson p : rperson.getAll()){
+		for (NQPerson p : repoperson.getAll()){
 			S2CIDCheck check = new S2CIDCheck();
 			check.person = p;
 			for (IDPicture pic : repoPicture.getAll()){
@@ -265,11 +280,11 @@ public class ServiceSocial  {
 	}
 
 	public NQPerson getByID(String id) {
-		return rperson.get(id);
+		return repoperson.get(id);
 	}
 
 	public int countPeople() {
-		return rperson.count();
+		return repoperson.count();
 	}
 
 }

@@ -1,11 +1,12 @@
 package org.deguet;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.UUID;
 
-import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -14,10 +15,10 @@ import javax.ws.rs.PathParam;
 import org.deguet.model.civil.NQPerson;
 import org.deguet.model.transfer.C2SVoteRequest;
 import org.deguet.model.transfer.S2CPreferentialResult;
+import org.deguet.model.vote.NQAnswer;
 import org.deguet.model.vote.NQAnswerReceipt;
 import org.deguet.model.vote.NQQuestion;
 import org.deguet.model.vote.NQResult;
-import org.deguet.model.vote.NQAnswer;
 import org.deguet.service.ServiceSocial.NoToken;
 import org.deguet.service.ServiceVote.AlreadyVoted;
 import org.deguet.service.ServiceVote.NoSuchPoll;
@@ -39,6 +40,8 @@ public class WebServiceVote extends GenericWebService<NQAnswer> {
 	}
 
 
+	public static class ListOfSetOfString extends ArrayList<Set<String>>{}
+	
 	@POST										@Path("/vote")
 	public String vote(String json) 
 	{
@@ -53,6 +56,18 @@ public class WebServiceVote extends GenericWebService<NQAnswer> {
 			switch(p.type){
 			case Preferential: 
 				System.out.println("VOTE PREF " +json);
+				try {
+					// got to interpret a list of set as a rankedvote.
+					System.out.println("o.choice : " +o.choice);
+					ListOfSetOfString lss = CustomGson.getIt().fromJson(o.choice, ListOfSetOfString.class);
+					System.out.println("LSS " + lss);
+					RankedVote<String> rv = RankedVote.fromListOfSet(lss);
+					System.out.println("rv " + rv);
+					o.choice = CustomGson.getIt().toJson(rv);
+					Services.vote.registerVote(o);
+				} catch (AlreadyVoted | NoToken e1) {
+					return "AlreadyVoted";
+				}
 				return "Preferential TODO";
 			case SingleChoice: 
 				System.out.println("VOTE SINGLE " +json);

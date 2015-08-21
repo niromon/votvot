@@ -1,4 +1,4 @@
-votvot.controller('PollController', function ($window,$scope, $location, $http , $routeParams) {
+votvot.controller('PollController', function ($window,$scope,  $location, $http , $routeParams) {
 	var id = "";
 	angular.copy($routeParams.pollId, id);
 	console.log('/rest/poll/'+$routeParams.pollId);
@@ -69,7 +69,8 @@ votvot.controller('PollController', function ($window,$scope, $location, $http ,
 	$scope.sendPrefVote = function() {
 		  var votes = angular.copy($scope.buckets, votes);
 		  votes.splice(votes.length-1,1);
-		  var vote = votes.map(function(bucket) { return bucket.map(function(item) { return item.title; }).join('='); }).join('>');
+		  console.log(votes);
+		  var vote = votes.map(function(bucket) { return bucket.map(function(item) { return item; }).join('='); }).join('>');
 		  vote = angular.toJson(votes);
 		  var voteRequest = {'questionId':$routeParams.pollId,'voterId': $window.localStorage.personID, 'choice':vote};
 		  console.log("Vote is " + vote);
@@ -91,6 +92,7 @@ votvot.controller('PollController', function ($window,$scope, $location, $http ,
 			success(function(data, status, headers, config) {
 				console.log("Success "  );
 				console.log(data);
+				$window.location.reload();
 			}).
 			error(function(data, status, headers, config) {
 				console.log("Error " + data );
