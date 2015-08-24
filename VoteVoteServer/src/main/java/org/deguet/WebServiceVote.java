@@ -39,8 +39,8 @@ public class WebServiceVote extends GenericWebService<NQAnswer> {
 		super(NQAnswer.class);
 	}
 
-
-	public static class ListOfSetOfString extends ArrayList<Set<String>>{}
+	// just used to deserialise the transit format coming from JSON with GSON
+	private static class ListOfSetOfString extends ArrayList<Set<String>>{}
 	
 	@POST										@Path("/vote")
 	public String vote(String json) 

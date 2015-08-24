@@ -81,19 +81,6 @@ public class ServiceSocial  {
 		this.repoconfirmation = new JPARepository<NQConfirmation>(NQConfirmation.class);
 	}
 
-//	public ServiceSocial(
-//			RepoPerson rp , 
-//			CRUD<NQToken> rt, 
-//			CRUD<SocialLink> rl, 
-//			CRUD<Reference> rr, 
-//			CRUD<IDPicture> rpic){
-//		this.repoperson = 			rp;
-//		this.repoToken = 			rt;
-//		this.repolink = 			rl;
-//		this.reporef = 				rr;
-//		this.repoPicture = 			rpic;
-//	}
-
 	public List<NQPerson> relationByType(Type type, NQPerson p) {
 		List<NQPerson> res = new ArrayList<NQPerson>();
 		for (SocialLink l : repolink.getAll()){
@@ -213,27 +200,6 @@ public class ServiceSocial  {
 	public void deletePeople() {
 		repolink.deleteAll();
 		repoperson.deleteAll();
-	}
-
-	public void fakeLoad() {
-		try {
-			String[] first = {"joris","malcolm","evariste","alexandre"};
-			String[] last = {"deguet","valtrid"};
-			for (String f : first){
-				for (String l : last){
-					C2SSignUpRequest p = new C2SSignUpRequest();
-					p.email = f+"."+l+"@gmail.com";
-					p.password = "password";
-					p.birthDate = DateTime.now().withDayOfMonth(24).withMonthOfYear(4).withYear(1981);
-					p.sex = Sex.Male;
-					p.adress = new NQPosition("Montreal", 45.0, 73.0);
-					NQPerson person = signUp(p);
-					System.out.println("Created " + person.getId() + "  : " +p.email);
-				}
-			}
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		} 
 	}
 
 	public void add(Reference ref){
