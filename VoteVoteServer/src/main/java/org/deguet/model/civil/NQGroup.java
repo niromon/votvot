@@ -1,5 +1,7 @@
 package org.deguet.model.civil;
 
+import javax.persistence.Entity;
+
 import org.deguet.model.Identifiable;
 
 /**
@@ -9,6 +11,7 @@ import org.deguet.model.Identifiable;
  * @author joris
  *
  */
+//@Entity
 public class NQGroup extends Identifiable
 {
 

@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 
 import org.deguet.model.Identifiable;
 
-@Entity
+//@Entity
 public class SocialLink extends Identifiable{
 
 	public enum Type {Friend, Family, Professional, Other}

@@ -16,13 +16,13 @@ import org.deguet.model.NQPosition;
 import org.joda.time.DateTime;
 
 @Entity
-@Table(
-        indexes = @Index(columnList = "email")
-)
+//@Table(
+//        indexes = @Index(columnList = "email")
+//)
 public class NQPerson extends Identifiable implements Comparable<NQPerson>{
 
 	public enum Sex {Male,Female}
-	@Column(unique = true) public String email;
+	@Basic public String email;
 	@Basic public String firstName;
 	@Basic public String lastName;
 	
