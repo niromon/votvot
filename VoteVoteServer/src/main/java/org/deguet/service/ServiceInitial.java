@@ -328,26 +328,6 @@ public class ServiceInitial {
 	}
 
 	public void createSampleQuestions(Random r) throws Exception{
-		//		String[] questions = {
-		//				//"Qui premier ministre en ",
-		//				"Qui président de la France en ",
-		//		"Qui pape en "};
-		//		String[] choices = {"Lennon","McCartney","Star","Harrison","Deguet", "Dupont","Levasseur", "Valtrid"};
-		//		for (String q : questions){
-		//			for (int i = 0 ; i < 1 ; i++){
-		//				Poll p = new Poll();
-		//				p.question = q+""+(i*100+r.nextInt(10))+"?";
-		//				List<String> base = new ArrayList<String>();
-		//				for (String c : choices){
-		//					base.add(c);
-		//				}
-		//				Collections.shuffle(base, r);
-		//				p.choices = new ArrayList<String>(base.subList(0, 3+ r.nextInt(base.size()-3)));
-		//				p.type = r.nextBoolean()?Type.Preferential:Type.SingleChoice;
-		//				p.acceptedDate = DateTime.now().minusYears(1);
-		//				svote.create(p);
-		//			}
-		//		}
 		svote.create(new NQQuestion(Type.SingleChoice,
 				"Pour ou contre l'interdiction de chauffer un lieu public a plus de 22 et de climatiser a moins de 25?",
 				"Pour","Contre"));

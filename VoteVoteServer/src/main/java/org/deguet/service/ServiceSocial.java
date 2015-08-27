@@ -16,7 +16,6 @@ import org.deguet.model.civil.NQConfirmation;
 import org.deguet.model.civil.NQGroup;
 import org.deguet.model.civil.NQPerson;
 import org.deguet.model.civil.NQPerson.Sex;
-import org.deguet.model.civil.Reference;
 import org.deguet.model.civil.SocialLink;
 import org.deguet.model.civil.SocialLink.Type;
 import org.deguet.model.transfer.C2SSignUpRequest;
@@ -26,6 +25,8 @@ import org.deguet.utils.CRUD;
 import org.deguet.utils.FileRepository;
 import org.deguet.utils.JPARepository;
 import org.joda.time.DateTime;
+
+import com.mchange.rmi.NotAuthorizedException;
 
 /**
  * une personne s'inscrit et on peut valider son existence
@@ -56,6 +57,7 @@ public class ServiceSocial  {
 	public static class BadBirth extends Exception{}
 	public static class BadSex extends Exception{}
 	public static class BadAddress extends Exception{}
+	public static class NotAuthorized extends Exception{}
 
 	public class NoOneLogged extends Exception{}
 	public class NoToken extends Exception{}
@@ -65,7 +67,6 @@ public class ServiceSocial  {
 	public final CRUD<NQToken> 				repoToken ;
 	public final CRUD<IDPicture> 			repoPicture ;
 	public final CRUD<SocialLink> 			repolink;
-	public final CRUD<Reference> 			reporef;
 	public final CRUD<NQGroup> 				repogroup;
 	public final CRUD<NQAffiliation> 		repoaffiliation;
 	public final CRUD<NQConfirmation> 		repoconfirmation;
@@ -74,7 +75,6 @@ public class ServiceSocial  {
 		this.repoperson = new RepoPerson();
 		this.repoToken = new FileRepository<NQToken>(NQToken.class);
 		this.repolink = new FileRepository<SocialLink>(SocialLink.class);
-		this.reporef = new FileRepository<Reference>(Reference.class);
 		this.repoPicture = new FileRepository<IDPicture>(IDPicture.class);
 		this.repogroup = new JPARepository<NQGroup>(NQGroup.class);
 		this.repoaffiliation = new JPARepository<NQAffiliation>(NQAffiliation.class);
@@ -161,10 +161,10 @@ public class ServiceSocial  {
 	 * @param p
 	 * @return
 	 */
-	public List<Reference> refsFor(NQPerson p){
-		List<Reference> res = new  ArrayList<Reference>();
-		for (Reference r : reporef.getAll()){
-			if (r.validated.getId().equals(p.getId())) res.add(r);
+	public List<NQConfirmation> confirmationsFor(NQPerson p){
+		List<NQConfirmation> res = new  ArrayList<NQConfirmation>();
+		for (NQConfirmation c : repoconfirmation.getAll()){
+			if (c.confirmedID.equals(p.getId())) res.add(c);
 		}
 		return res;
 	}
@@ -182,12 +182,12 @@ public class ServiceSocial  {
 		}
 		return result;
 	}
-	
+
 	public static double distance(String a, String b){
 		// TODO go get a fast similarity distance
 		return 1.0;
 	}
-	
+
 	public static boolean isValidPassword(String password) {return password.length() >= 4;}
 
 	public NQToken getTokenFor(String id) throws NoToken {
@@ -202,11 +202,27 @@ public class ServiceSocial  {
 		repoperson.deleteAll();
 	}
 
-	public void add(Reference ref){
-		// validation
-		// add the reference
-		// compute if we consider it a real person threshold
-		reporef.save(ref);
+	public void add(NQConfirmation confirmation, String currentUserID) throws NotAuthorized{
+		// check if the confirmer is the logged user
+		if (!currentUserID.equals(confirmation.confirmerID)) throw new NotAuthorized();
+		// get the confirmer object
+		NQPerson confirmer = repoperson.get(confirmation.confirmerID);
+		// two cases : basic info or group appartenance
+		switch (confirmation.type){
+		case BasicInfo:{
+			// validation
+			NQPerson confirmed = repoperson.get(confirmation.confirmerID);
+			// add the reference
+			repoconfirmation.save(confirmation);
+			// update confidence in this user
+			break;
+		}
+		case GroupAffiliation:{
+
+			break;
+		}
+		}
+
 	}
 
 	public void create(SocialLink link) {

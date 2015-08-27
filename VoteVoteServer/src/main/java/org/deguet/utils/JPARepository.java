@@ -12,11 +12,11 @@ import org.deguet.model.Identifiable;
 
 public class JPARepository<T extends Identifiable> implements CRUD<T> {
 
-	@PersistenceContext(unitName = "hsql")
 	private static EntityManagerFactory emf;
 	protected EntityManager getEntityManager() {
 		if (emf == null){
 			emf = Persistence.createEntityManagerFactory("hsql");
+			//emf = Persistence.createEntityManagerFactory("derby");
 		}
 		return emf.createEntityManager();
 	}
