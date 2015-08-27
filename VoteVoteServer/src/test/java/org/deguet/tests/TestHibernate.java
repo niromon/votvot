@@ -17,7 +17,7 @@ public class TestHibernate {
 	@Test
 	public void test2(){
 		try{
-			EntityManagerFactory factory = Persistence.createEntityManagerFactory("hsql");
+			EntityManagerFactory factory = Persistence.createEntityManagerFactory("derby");
 			//EntityManagerFactory factory = Persistence.createEntityManagerFactory("persi");
 			EntityManager em = factory.createEntityManager();
 			assertNotNull(em);

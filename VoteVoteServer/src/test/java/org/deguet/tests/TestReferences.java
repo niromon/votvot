@@ -51,35 +51,37 @@ public class TestReferences {
 		sersoc.deletePeople();
 		NQPerson person = sersoc.signUp(p);
 		// to reference they have to know them
-//		for (int i = 0 ; i < 100 ; i++){
-//			C2SSignUpRequest friend = new C2SSignUpRequest();
-//			friend.email = "jo"+i+"@blo.com";
-//			friend.firstName = "jo";
-//			friend.lastName = "blo";
-//			friend.password = "pipo";
-//			friend.birthDate = DateTime.now().minusYears(18);
-//			friend.birthPlace = new NQPosition("ici", 54.0, 45.0);
-//			friend.sex = Sex.Male;
-//			friend.adress = new NQPosition("ici", 54.0, 45.0);
-//			NQPerson friendPerson = sersoc.signUp(friend);
+		for (int i = 0 ; i < 10 ; i++){
+			C2SSignUpRequest friend = new C2SSignUpRequest();
+			friend.email = "jo"+i+"@blo.com";
+			friend.firstName = "jo";
+			friend.lastName = "blo";
+			friend.password = "pipo";
+			friend.birthDate = DateTime.now().minusYears(18);
+			friend.birthPlace = new NQPosition("ici", 54.0, 45.0);
+			friend.sex = Sex.Male;
+			friend.adress = new NQPosition("ici", 54.0, 45.0);
+			NQPerson friendPerson = sersoc.signUp(friend);
 //			SocialLink link = new SocialLink();
 //			link.userA = person.getId();
 //			link.userB = friendPerson.getId();
 //			link.type = Type.Friend;
 //			sersoc.create(link);
-//		}
-		for (int i = 0 ; i < 100 ; i++){
+		}
+		for (int i = 0 ; i < 10 ; i++){
 			NQPerson a = sersoc.findByLogin("jo@blo.com");
 			NQPerson b = sersoc.findByLogin("jo"+i+"@blo.com");
 			NQConfirmation confirmation= new NQConfirmation();
 			confirmation.date = DateTime.now();
 			confirmation.confirmerID = b.getId();
 			confirmation.confirmedID = a.getId();
+			confirmation.type = NQConfirmation.Type.BasicInfo;
+			confirmation.answer = NQConfirmation.Answer.Confirm;
 			sersoc.add(confirmation, b.getId());
 		}
 		NQPerson ppp = sersoc.findByLogin("jo@blo.com");
-		List<NQConfirmation> refs = sersoc.confirmationsFor(ppp);
-		Assert.assertEquals(100, refs.size());
+		List<NQConfirmation> confs = sersoc.confirmationsFor(ppp);
+		Assert.assertEquals(10, confs.size());
 
 	} 
 

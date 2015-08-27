@@ -15,8 +15,9 @@ public class JPARepository<T extends Identifiable> implements CRUD<T> {
 	private static EntityManagerFactory emf;
 	protected EntityManager getEntityManager() {
 		if (emf == null){
-			emf = Persistence.createEntityManagerFactory("hsql");
-			//emf = Persistence.createEntityManagerFactory("derby");
+			//emf = Persistence.createEntityManagerFactory("hsql");
+			//emf = Persistence.createEntityManagerFactory("mysql");
+			emf = Persistence.createEntityManagerFactory("derby");
 		}
 		return emf.createEntityManager();
 	}

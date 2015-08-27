@@ -19,27 +19,27 @@ import com.google.gson.reflect.TypeToken;
 
 public class TestData {
 
-	public class ListPoll {
-		List<NQQuestion> polls = new ArrayList<NQQuestion>();
-	}
-	
-	@Test
-	public void testImportData() throws JsonSyntaxException, JsonIOException, FileNotFoundException, JsonProcessingException{
-		File dir = new File("data");
-		for (File file : dir.listFiles()){
-			if (file.getName().startsWith(".")) continue;
-			if (file.isDirectory()) continue;
-			System.out.println("File  " + file.getAbsolutePath());
-			Gson gson = new Gson();
-			
-			ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-			List<NQQuestion> polls = gson.fromJson(new FileReader(file), new TypeToken<List<NQQuestion>>(){}.getType());
-			for (NQQuestion poll : polls){
-				System.out.println("Poll extracted " + poll);
-				String yaml = mapper.writeValueAsString(poll);
-				System.out.println(yaml);
-			}
-		}
-	}
+//	public class ListPoll {
+//		List<NQQuestion> polls = new ArrayList<NQQuestion>();
+//	}
+//	
+//	@Test
+//	public void testImportData() throws JsonSyntaxException, JsonIOException, FileNotFoundException, JsonProcessingException{
+//		File dir = new File("data");
+//		for (File file : dir.listFiles()){
+//			if (file.getName().startsWith(".")) continue;
+//			if (file.isDirectory()) continue;
+//			System.out.println("File  " + file.getAbsolutePath());
+//			Gson gson = new Gson();
+//			
+//			ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+//			List<NQQuestion> polls = gson.fromJson(new FileReader(file), new TypeToken<List<NQQuestion>>(){}.getType());
+//			for (NQQuestion poll : polls){
+//				System.out.println("Poll extracted " + poll);
+//				String yaml = mapper.writeValueAsString(poll);
+//				System.out.println(yaml);
+//			}
+//		}
+//	}
 	
 }

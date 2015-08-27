@@ -15,7 +15,7 @@ import org.joda.time.DateTime;
  * @author joris
  *
  */
-//@Entity
+@Entity
 public class NQConfirmation extends Identifiable{
 
 	public String confirmedID;
