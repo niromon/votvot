@@ -9,8 +9,8 @@
 <title>Votvot  {{ 'TITLE' | translate }}</title>
 
 <!-- Bootstrap core CSS -->
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="libs/jquery-ui.css">
+<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="bower_components/jquery-ui/themes/base/jquery-ui.css">
 <link rel="shortcut icon"  href="images/Logo.png" />
 <style>
 body {
@@ -62,19 +62,19 @@ body {
 							Suivis
 							<span class="badge badge-notify">12</span>
 						</a>
-							
+
 					</li>
 					<li><a href="#myvotes">{{ 'MY_VOTES' | translate }}<span class="glyphicon glyphicon-envelope"
 							aria-hidden="true"></span></a></li>
 <!-- 					<li><a href="#"><span class="glyphicon glyphicon-globe" -->
 <!-- 							aria-hidden="true"></span></a></li> -->
-					
+
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown">
 							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 							<span class="caret"></span>
 							<span class="badge badge-notify">33</span>
-							
+
 						</a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="/rest/social/all">Tous les utilisateurs</a></li>
@@ -91,7 +91,7 @@ body {
 							<li><a href="/rest/initial">Localhost load</a></li>
 						</ul>
 					</li>
-					
+
 <!-- 					<li class="dropdown"><a  class="dropdown-toggle" data-toggle="dropdown"> -->
 <!-- 						<span class="glyphicon glyphicon-globe" -->
 <!-- 							aria-hidden="true"><span class="caret"></span></a> -->
@@ -142,7 +142,7 @@ body {
 					<li><a ng-href="/rest/flushfortests" target="_blank">{{ 'FLUSH_SERVER' | translate }}</a></li>
 				</ul>
 			</li>
-			
+
 		</ul>
 		<ul class="nav navbar-nav navbar-right" ng-controller="LocaleController">
 <!-- 			<li><a ng-click="changeLanguage('en')">en</a></li> -->
@@ -166,25 +166,26 @@ body {
 		<div class="ng-view"></div>
 	</div>
 	<!-- /container -->
-	
+
     <!-- ================================================== -->
 	<!-- Local for dev -->
-	<script src="libs/jquery-1.11.1.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="libs/jquery-ui.js"></script>
-	<script src="libs/spin.min.js"></script>
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/jquery-ui/jquery-ui.js"></script>
 	<script src="libs/jquery-ui-i18n.min.js"></script>
-	<script src="libs/angular.js"></script>
-	<script src="libs/angular-route.js"></script>
-	<script src="libs/angular-translate.js"></script>
-	<script src="libs/angular-spinner.js"></script>
-	<script src="libs/ui-bootstrap-tpls-0.12.0.js"></script>
-	<script src="libs/angular-locale_fr-fr.js"></script>
-	<script src="libs/angular-dragdrop.min.js"></script>
+	<script src="bower_components/spin.js/spin.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/angular-translate/angular-translate.js"></script>
+	<script src="bower_components/angular-spinner/angular-spinner.js"></script>
+	<script src="bower_components/angular-i18n/angular-locale_fr-fr.js"></script>
+	<script src="bower_components/angular-dragdrop/src/angular-dragdrop.min.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
 	<script src="libs/vis/dist/vis.min.js"></script>
 	<script src="libs/canvasjs.min.js"></script>
 
-	
+
 	<!-- CDN for production -->
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
 <!-- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
